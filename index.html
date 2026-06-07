@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>INFP 内容岗·作品方向选择报告 | 小红书运营</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f6f4f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Roboto, "Helvetica Neue", sans-serif;
+            line-height: 1.5;
+            color: #2b2a28;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* 头部区域 */
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 1px solid #e2dfda;
+            padding-bottom: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #eae6df;
+            padding: 0.25rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            color: #4a4843;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 550;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+            color: #1f1e1c;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #6e6b65;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .profile-summary {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            border-radius: 24px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 2rem;
+            border: 1px solid #e9e5df;
+            font-size: 0.9rem;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-label {
+            font-weight: 550;
+            color: #3f3d39;
+        }
+
+        .profile-value {
+            color: #7e7a72;
+        }
+
+        .profile-value strong {
+            color: #c26e3c;
+            font-weight: 550;
+        }
+
+        /* 筛选栏 */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.8rem 0 1.2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #dbd6cf;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5d5952;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: #2b2a28;
+            border-color: #2b2a28;
+            color: #ffffff;
+        }
+
+        .sort-select {
+            background: white;
+            border: 1px solid #dbd6cf;
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            color: #2b2a28;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* 卡片网格 */
+        .cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1px solid #eeebe6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card-title h3 {
+            font-size: 1.3rem;
+            font-weight: 560;
+            letter-spacing: -0.2px;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            background: #f2efe9;
+            padding: 0.2rem 0.65rem;
+            border-radius: 50px;
+            color: #5b564d;
+        }
+
+        .meta-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .match-badge {
+            background: #f1ede7;
+            border-radius: 30px;
+            padding: 0.25rem 0.9rem;
+            font-weight: 500;
+            color: #c26e3c;
+        }
+
+        .expand-icon {
+            font-size: 1.4rem;
+            color: #adaba3;
+            transition: transform 0.2s;
+        }
+
+        .card-detail {
+            display: none;
+            border-top: 1px solid #f0ece6;
+            padding: 1.2rem 1.4rem;
+            background: #fefdfb;
+            border-radius: 0 0 28px 28px;
+        }
+
+        .card-detail.show {
+            display: block;
+        }
+
+        .detail-section {
+            margin-bottom: 1rem;
+        }
+
+        .detail-section strong {
+            font-weight: 560;
+            color: #2b2a28;
+            display: inline-block;
+            min-width: 105px;
+        }
+
+        .jd-hint {
+            background: #f4f1ec;
+            padding: 0.6rem 1rem;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            color: #5b564d;
+            margin-top: 0.75rem;
+        }
+
+        .divider-light {
+            border: none;
+            border-top: 1px solid #e9e4dd;
+            margin: 0.8rem 0;
+        }
+
+        /* 引导模块 */
+        .guide-box {
+            background: #fffcf8;
+            border-radius: 28px;
+            border: 1px solid #e3dfd8;
+            padding: 1.6rem;
+            margin: 1rem 0 2rem;
+        }
+
+        .guide-title {
+            font-weight: 560;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-item {
+            margin-bottom: 1rem;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #eeebe6;
+        }
+
+        .question-text {
+            font-weight: 540;
+            margin-bottom: 0.4rem;
+        }
+
+        .btn-light {
+            background: #f2eee8;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-right: 0.6rem;
+            margin-top: 0.5rem;
+            transition: background 0.15s;
+        }
+
+        .btn-light:hover {
+            background: #e7e1d8;
+        }
+
+        .final-target {
+            background: #2b2a28;
+            color: white;
+            border-radius: 36px;
+            padding: 1rem 1.6rem;
+            text-align: center;
+            margin-top: 1.8rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #b0aba3;
+            margin-top: 2rem;
+            border-top: 1px solid #ece8e2;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .profile-summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="badge">⚡ Vibe Coding · 作品方向报告</div>
+        <h1>小红书运营 · 作品方向锚定报告</h1>
+        <div class="subhead">INFP × 文科背景 × 爆款内容力 · 为你量身定制的可交互网页方向</div>
+        <div class="profile-summary">
+            <div class="profile-item"><span class="profile-label">🎓 专业背景</span><span class="profile-value">文科大类 (中文/新传/外语/社科)</span></div>
+            <div class="profile-item"><span class="profile-label">🧠 MBTI</span><span class="profile-value"><strong>INFP</strong> · 理想主义 · 共情力 · 表达欲</span></div>
+            <div class="profile-item"><span class="profile-label">✍️ 核心优势</span><span class="profile-value">复杂信息→清晰表达 · LOFTER 单篇1k+热度</span></div>
+            <div class="profile-item"><span class="profile-label">🎯 Dream Job</span><span class="profile-value"><strong>小红书运营</strong> (内容/创作者/社区方向)</span></div>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <div class="filter-group">
+            <button class="filter-btn" data-filter="all">全部方向</button>
+            <button class="filter-btn" data-filter="易表达优势">📝 我擅长：清晰传达</button>
+            <button class="filter-btn" data-filter="岗位匹配度高">🎯 岗位匹配度 >85%</button>
+            <button class="filter-btn" data-filter="INFP天赋">✨ INFP创作核心</button>
+        </div>
+        <select id="sortSelect" class="sort-select">
+            <option value="default">默认排序</option>
+            <option value="match">匹配度从高到低</option>
+            <option value="difficulty">难度由低到高</option>
+        </select>
+    </div>
+
+    <div id="cardsContainer" class="cards-grid"></div>
+
+    <!-- 2~3 个判断问题引导 -->
+    <div class="guide-box" id="guideSection">
+        <div class="guide-title">🎯 怎么选？ 用以下3个问题把范围缩到 <strong style="color:#c26e3c;">唯一方向</strong></div>
+        <div class="question-item" data-question="q1">
+            <div class="question-text">Q1. 你现在手上最想向HR证明的核心能力是？</div>
+            <button class="btn-light" data-answer="策略+数据分析">📊 策略 + 数据分析 (有结果导向)</button>
+            <button class="btn-light" data-answer="选题策划+网感">🔥 选题策划+网感 (懂热点)</button>
+            <button class="btn-light" data-answer="审美+内容拆解">🎨 审美+内容拆解 (风格化)</button>
+            <button class="btn-light" data-answer="用户共情+沟通逻辑">💬 用户共情+沟通逻辑 (KOL/KOC)</button>
+        </div>
+        <div class="question-item" data-question="q2">
+            <div class="question-text">Q2. 你愿意花主要精力攻克什么类型的“交互表达”？</div>
+            <button class="btn-light" data-answer="诊断器/测评">⚡ 诊断器/测评 (高互动, 强种草)</button>
+            <button class="btn-light" data-answer="内容种草计算器">🧾 内容种草计算器 (数据+内容结合)</button>
+            <button class="btn-light" data-answer="灵感选题生成器">💡 灵感选题生成器 (高频创意)</button>
+            <button class="btn-light" data-answer="可点创意原型">📱 可点创意原型 (账号主页/交互)</button>
+        </div>
+        <div class="question-item" data-question="q3">
+            <div class="question-text">Q3. 你希望面试时第一眼就让面试官觉得你「很懂小红书」的哪个切面？</div>
+            <button class="btn-light" data-answer="内容运营与转化">📈 内容运营与转化 (爆款+钩子)</button>
+            <button class="btn-light" data-answer="社区氛围与共情">🕊️ 社区氛围与共情 (INFP强项)</button>
+            <button class="btn-light" data-answer="数据驱动决策">📉 数据驱动决策 (复盘优化)</button>
+        </div>
+        <div id="recommendResult" style="margin-top: 1.2rem; font-size: 0.95rem; background: #ffffff; border-radius: 24px; padding: 1rem;"></div>
+    </div>
+    <div class="footer-note">
+        🧩 每个方向都是「可交互网页」类型：测评/诊断/生成器/计算器/看板/原型 —— 作品集 = 活的案例，不止是文档。<br>
+        基于小红书运营最新人才标准：“有结果、有洞察、有信任、有格局”，月薪 16-28k 非技术岗大量扩招，内容运营岗年薪 10-22w。
+    </div>
+</div>
+
+<script>
+    // ---------- 候选方向数据 (基于用户信息深度定制) ----------
+    // 全部5个方向，每个方向都是交互类网页
+    const directions = [
+        {
+            id: 0,
+            name: "📌 小红书「爆款诊断器」",
+            shortDesc: "输入笔记标题/封面/文案结构 → 实时给出优化评分、建议&互动钩子",
+            matchPercent: 96,
+            difficulty: 2,   // 1低难度，2中等，3稍高 （相对而言 1 易实现）
+            trait: "INFP天赋+岗位匹配度高",
+            strengths: "易表达优势,INFP天赋,岗位匹配度高",
+            what: "一个可交互诊断网页：模拟小红书笔记预审机制。用户粘贴笔记内容或选择选项，系统自动分析标题网感、封面吸引力、正文钩子，并输出『爆款潜力分+具体修改建议』，相当于轻量版AI审稿工具。",
+            prove: "HR一看即懂——证明你会拆解小红书高互动内容的底层要素(内容架构、话题设置、标题党)，同时具备数据分析逻辑与用户共情。",
+            matchReason: "命中岗位最硬要求：『极强的网感，能快速捕捉用户喜好』『熟知平台高互动内容的核心要素』。INFP 对文字和情绪的感知力让诊断维度更细腻。",
+            jdHit: "对应 JD 关键词：网感+热点捕捉+种草文案能力+内容拆解 [reference:0][reference:1]"
+        },
+        {
+            id: 1,
+            name: "✨ 种草风格调色盘 (审美诊断器)",
+            shortDesc: "上传/选择视觉偏好 → 推荐封面色系 / 字体 / 排版趋势",
+            matchPercent: 88,
+            difficulty: 2,
+            trait: "易表达优势",
+            strengths: "易表达优势,INFP天赋",
+            what: "交互式视觉偏好工具：通过几组『选你更喜欢的视觉风格』卡片，最终生成『你的小红书封面风格诊断书』，附带同赛道爆款封面色系分析和排版示范。",
+            prove: "证明内容运营不可或缺的『基础审美』『视觉差异化』和『平台视觉偏好』—— HR 会看到你懂封面即流量、不止会写文案。",
+            matchReason: "命中『基础视觉审美』『封面呈现』关键词。INFP的天然审美高敏感+细腻表达让诊断更可信。",
+            jdHit: "对应 JD 有明确要求『有相关的海报/封面等设计能力』『审美在线，了解平台视觉偏好』 [reference:2][reference:3]"
+        },
+        {
+            id: 2,
+            name: "📊 账号北极星计算器",
+            shortDesc: "填入基础数据(赞藏比/涨粉率) → 生成优化复盘看板",
+            matchPercent: 92,
+            difficulty: 1,
+            trait: "岗位匹配度高",
+            strengths: "岗位匹配度高,易表达优势",
+            what: "一个轻量仪表盘页面：模拟小红书后台&第三方数据（千瓜/新红），用户输入笔记的几个核心指标，立刻展示关键健康度雷达图+运营策略建议（如提升互动钩子、优化完播率）",
+            prove: "直击『数据分析能力』『数据驱动优化策略』，表现出从数据反哺内容决策的硬核运营思维，符合小红书『四有青年』的『有结果/有洞察』人才标准。",
+            matchReason: "小红书运营 JD 反复要求『跟踪平台数据，定期整理报告，分析运营效果』[reference:4]。擅长把复杂事物讲清楚、用可交互看板转译数据，极大差异化。",
+            jdHit: "命中多项 JD：「数据分析能力，熟练掌握后台工具」「数据思维优化内容策略」「复盘并优化运营策略」 [reference:5][reference:6]"
+        },
+        {
+            id: 3,
+            name: "🎨 INFP创意选题生成器",
+            shortDesc: "随机抽取/定制轻治愈类选题 → 一秒得小红书灵感卡片",
+            matchPercent: 94,
+            difficulty: 1,
+            trait: "INFP天赋",
+            strengths: "INFP天赋,易表达优势",
+            what: "一个『随机或定制选题』的网页：基于不同赛道（美妆/家居/读书/情感）提供小众但高潜力的『小红书情绪选题』，每次点击像开盲盒一样得到一句完整标题+内容切入点，并展示同类爆款逻辑。",
+            prove: "完美适配『内容策划与选题能力』『创意表达』，充分发扬你 LOFTER 1000+热度的选题敏感和表达力。",
+            matchReason: "INFP 独属的创作灵感和共情在这个工具里变成『可复用的内容资产』，HR 会直接感受到你懂Z世代语境和差异化创作。",
+            jdHit: "高频需求：「内容规划与撰写，捕捉热点，产出符合年轻群体语境的爆款内容」「具有极强的网感，流行话术敏感度」[reference:7][reference:8]"
+        },
+        {
+            id: 4,
+            name: "🤝 KOC 匹配锦囊 (达人种草原型)",
+            shortDesc: "品牌/产品卖点输入 → 智能推荐博主类型+brief 共创建议",
+            matchPercent: 90,
+            difficulty: 3,
+            trait: "岗位匹配度高",
+            strengths: "岗位匹配度高",
+            what: "一个可点击的原型 demo: 模拟小红书运营在蒲公英平台选号的过程，根据产品类目（美妆/家居/3C）和预算生成达人类型组合、brief要点与投放预估互动率。",
+            prove: "证明你具备博主合作、内容把控、brief 共创的能力，是复合型小红书运营（不只做内容，会种草+达人协作）。",
+            matchReason: "小红书2026校招内容运营岗明确需要“KOL/KOC孵化，对接创作者”，以及社招中『达人筛选与协作』能力，这个交互原型能直接命中用人趋势。",
+            jdHit: "「配合筛选符合品牌调性的KOL/KOC」「具备创作者孵化与对接能力」「小红书达人种草实操经验」 [reference:10]"
+        }
+    ];
+
+    let currentFilter = "all";
+    let currentSort = "default";
+
+    // 渲染卡片逻辑
+    function renderCards() {
+        let filtered = [...directions];
+        // 筛选
+        if (currentFilter !== "all") {
+            if (currentFilter === "易表达优势") {
+                filtered = filtered.filter(d => d.strengths.includes("易表达优势"));
+            } else if (currentFilter === "岗位匹配度高") {
+                filtered = filtered.filter(d => d.matchPercent >= 85 && d.strengths.includes("岗位匹配度高"));
+            } else if (currentFilter === "INFP天赋") {
+                filtered = filtered.filter(d => d.strengths.includes("INFP天赋"));
+            }
+        }
+        // 排序
+        if (currentSort === "match") {
+            filtered.sort((a,b) => b.matchPercent - a.matchPercent);
+        } else if (currentSort === "difficulty") {
+            filtered.sort((a,b) => a.difficulty - b.difficulty);
+        } else {
+            // default 按原id排序
+            filtered.sort((a,b) => a.id - b.id);
+        }
+
+        const container = document.getElementById("cardsContainer");
+        if (!container) return;
+        container.innerHTML = "";
+        filtered.forEach(dir => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.dataset.id = dir.id;
+            // 头部 HTML
+            const matchClass = dir.matchPercent >= 90 ? "match-badge" : "match-badge";
+            card.innerHTML = `
+                <div class="card-header">
+                    <div>
+                        <div class="card-title"><h3>${dir.name}</h3></div>
+                        <div class="card-tags">
+                            <span class="tag">🎯 ${dir.trait}</span>
+                            <span class="tag">⚙️ 交互网页型</span>
+                        </div>
+                    </div>
+                    <div class="meta-stats">
+                        <span class="${matchClass}">匹配度 ${dir.matchPercent}%</span>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                </div>
+                <div class="card-detail">
+                    <div class="detail-section"><strong>📌 这是一个什么交互作品</strong><br>${dir.what}</div>
+                    <div class="detail-section"><strong>🏆 向HR证明的能力</strong><br>${dir.prove}</div>
+                    <div class="detail-section"><strong>📈 匹配度 ${dir.matchPercent}% · 一句话理由</strong><br>${dir.matchReason}</div>
+                    <div class="jd-hint"><strong>🎯 命中岗位要求：</strong> ${dir.jdHit}</div>
+                </div>
+            `;
+            // 展开收起
+            const headerDiv = card.querySelector(".card-header");
+            const detailDiv = card.querySelector(".card-detail");
+            const expandIcon = card.querySelector(".expand-icon");
+            headerDiv.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isOpen = detailDiv.classList.contains("show");
+                if (isOpen) {
+                    detailDiv.classList.remove("show");
+                    if (expandIcon) expandIcon.innerHTML = "▼";
+                } else {
+                    detailDiv.classList.add("show");
+                    if (expandIcon) expandIcon.innerHTML = "▲";
+                }
+            });
+            container.appendChild(card);
+        });
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center;padding:2rem;background:#fcfaf7;border-radius:28px;">暂无匹配方向，试试清除筛选 🙌</div>';
+        }
+    }
+
+    // 筛选与排序绑定
+    function initFilters() {
+        const btns = document.querySelectorAll(".filter-btn");
+        btns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                btns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentFilter = btn.dataset.filter;
+                renderCards();
+            });
+        });
+        const sortSelect = document.getElementById("sortSelect");
+        if (sortSelect) {
+            sortSelect.addEventListener("change", (e) => {
+                currentSort = e.target.value;
+                renderCards();
+            });
+        }
+        // 初始默认激活“全部方向”
+        document.querySelector('.filter-btn[data-filter="all"]')?.classList.add("active");
+    }
+
+    // 引导问答——智能推荐方向 (不求完美但展示引导)
+    function initGuide() {
+        const resultDiv = document.getElementById("recommendResult");
+        let answers = { q1: "", q2: "", q3: "" };
+        const buttons = document.querySelectorAll(".btn-light");
+        buttons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const answer = btn.dataset.answer;
+                const parent = btn.closest("[data-question]");
+                if (parent) {
+                    const qKey = parent.dataset.question;
+                    if (qKey) answers[qKey] = answer;
+                }
+                // 给出简单的动态推荐，基于用户偏好映射到某一个最接近方向
+                let recommendId = 0; // 默认爆款诊断器
+                if (answers.q1?.includes("策略+数据分析") || answers.q2?.includes("内容种草计算器") || answers.q3?.includes("内容运营与转化")) {
+                    recommendId = 2;  // 账号北极星计算器
+                } else if (answers.q1?.includes("选题策划+网感") || answers.q2?.includes("灵感选题生成器") || answers.q3?.includes("共情")) {
+                    recommendId = 3;  // INFP灵感生成器
+                } else if (answers.q1?.includes("审美+内容拆解") || answers.q2?.includes("诊断器")) {
+                    recommendId = 1;  // 种草风格调色盘
+                } else if (answers.q1?.includes("用户共情+沟通逻辑") || answers.q2?.includes("可点创意原型") || answers.q3?.includes("数据驱动")) {
+                    recommendId = 4;  // KOC匹配锦囊
+                } else {
+                    // 综合倾向诊断器
+                    recommendId = 0;
+                }
+                const targetDir = directions.find(d => d.id === recommendId);
+                if (targetDir) {
+                    resultDiv.innerHTML = `<div style="background:#f4f1ec; border-radius:20px; padding:0.8rem 1rem;">✨ 根据你的选择，<strong>现阶段最适合你的锚定方向是：${targetDir.name}</strong><br>匹配度 ${targetDir.matchPercent}%<br><span style="font-size:0.85rem;">理由：你的回答倾向了「${answers.q1 || "—"} / ${answers.q2 || "—"} / ${answers.q3 || "—"}」, 与${targetDir.name}的能力内核完美咬合。<br><span style="display:inline-block; margin-top:0.4rem;">🎯 这个方向能直接命中小红书运营最看重的能力组合，先用它作为你的核心作品冲刺秋招/春招。</span></span></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div style="background:#f4f1ec; border-radius:20px; padding:0.8rem 1rem;">💡 结合你的信息，建议优先考虑「📌 小红书爆款诊断器」或「✨ 种草风格调色盘」—— 最能发挥INFP创作天赋+文案可迁移力，且完全对口2026小红书运营能力要求。</div>`;
+                }
+            });
+        });
+    }
+
+    renderCards();
+    initFilters();
+    initGuide();
+
+    // 额外确保所有卡片可展开收起，并实时标注命中岗位要求
+</script>
+</body>
+</html>
